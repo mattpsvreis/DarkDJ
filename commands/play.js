@@ -3,7 +3,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('play')
-		.setDescription('Toca um música via URL ou pesquisa no YouTube.')
+		.setDescription('Toca uma música/playlist via URL (Spotify/Youtube/Soundcloud), ou então pesquisa no YouTube.')
 		.addStringOption((option) => {
 			return option.setName('query').setDescription('query').setRequired(true);
 		}),

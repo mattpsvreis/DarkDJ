@@ -43,10 +43,8 @@ client.player.events.on('playerStart', (queue, track) => {
 });
 
 client.on('ready', () => {
-	const guild_ids = client.guilds.cache.map((guild) => guild.id);
-
 	const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
-	
+
 	rest
 		.put(Routes.applicationCommands(process.env.CLIENT_ID), {
 			body: commands,

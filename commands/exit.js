@@ -1,17 +1,18 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { useQueue } = require('discord-player');
 
 module.exports = {
-	data: new SlashCommandBuilder().setName('exit').setDescription('Cleans the queue and forces the BOT to leave the channel.'),
+	data: new SlashCommandBuilder().setName('exit').setDescription('Para de tocar todas as músicas e sai da sala.'),
 	execute: async ({ client, interaction }) => {
-		const queue = client.player.getQueue(interaction.guild);
+		const queue = useQueue(interaction.guild.id);
 
 		if (!queue) {
-			await interaction.reply('There is no song playing.');
+			await interaction.reply('Não há nenhuma música tocando.');
 			return;
 		}
 
-		queue.destroy();
+		queue.delete();
 
-		await interaction.reply('Queue cleaned and BOT disconnected from voice.');
+		await interaction.reply('Fila limpa e BOT desconectado do canal de voz.');
 	},
 };

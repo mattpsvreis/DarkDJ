@@ -10,11 +10,10 @@ const path = require('node:path');
 
 const client = new Client({
 	intents: [
-		GatewayIntentBits.GuildMembers,
-		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.GuildMessages,
 		GatewayIntentBits.MessageContent,
-		GatewayIntentBits.GuildVoiceStates
+		GatewayIntentBits.GuildVoiceStates,
+		GatewayIntentBits.Guilds,
 	],
 });
 
@@ -29,7 +28,7 @@ for (const file of commandFiles) {
 	const command = require(filePath);
 
 	client.commands.set(command.data.name, command);
-	commands.push(command);
+	commands.push(command.data.toJSON());
 }
 
 client.player = new Player(client, {

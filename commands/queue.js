@@ -1,5 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
 
 module.exports = {
 	data: new SlashCommandBuilder().setName('queue').setDescription('Shwos the first 10 songs in the queue.'),
@@ -22,7 +21,7 @@ module.exports = {
 
 		await interaction.reply({
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setDescription(
 						`**Currently Playing:**\n\` ${currentSong.title} - <@${currentSong.requestedBy.id}>\n\n**Queue:**\n${queueString}`
 					)

@@ -25,6 +25,7 @@ module.exports = {
 				nodeOptions: {
 					metadata: interaction,
 				},
+				requestedBy: interaction.user
 			});
 			return interaction.followUp(`**${track.title}** adicionado à fila!`);
 		} catch (e) {

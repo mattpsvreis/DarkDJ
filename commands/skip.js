@@ -2,7 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
 const { useQueue } = require('discord-player');
 
 module.exports = {
-	data: new SlashCommandBuilder().setName('skip').setDescription('Skips the current song.'),
+	data: new SlashCommandBuilder().setName('skip').setDescription('Pula a música atual.'),
 	execute: async ({ client, interaction }) => {
 		const queue = useQueue(interaction.guild.id);
 

@@ -7,27 +7,27 @@ module.exports = {
 		.setName('play')
 		.setDescription('Plays a song.')
 		.addSubcommand((subcommand) => {
-			subcommand
+			return subcommand
 				.setName('search')
 				.setDescription('Searches for a song.')
 				.addStringOption((option) => {
-					option.setName('searchterms').setDescription('search keywords').setRequired(true);
+					return option.setName('searchterms').setDescription('search keywords').setRequired(true);
 				});
 		})
 		.addSubcommand((subcommand) => {
-			subcommand
+			return subcommand
 				.setName('playlist')
 				.setDescription('Plays all the songs in a playlist from YT.')
 				.addStringOption((option) => {
-					option.setName('url').setDescription('playlist url').setRequired(true);
+					return option.setName('url').setDescription('playlist url').setRequired(true);
 				});
 		})
 		.addSubcommand((subcommand) => {
-			subcommand
+			return subcommand
 				.setName('song')
 				.setDescription('Plays a song from YT.')
 				.addStringOption((option) => {
-					option.setName('url').setDescription('song url').setRequired(true);
+					return option.setName('url').setDescription('song url').setRequired(true);
 				});
 		}),
 	execute: async ({ client, interaction }) => {

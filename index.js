@@ -39,7 +39,7 @@ client.player = new Player(client, {
 });
 
 client.player.events.on('playerStart', (queue, track) => {
-	queue.metadata.channel.send(`Started playing **${track.title}**!`);
+	queue.metadata.channel.send(`Agora tocando **${track.title}**!`);
 });
 
 client.on('ready', () => {
@@ -66,7 +66,7 @@ client.on('interactionCreate', async (interaction) => {
 		await command.execute({ client, interaction });
 	} catch (err) {
 		console.error(err);
-		await interaction.reply('An error occurred while executing that command. Contact @Dark#2959 about this error.');
+		await interaction.reply('Ocorreu um erro ao executar o comando.');
 	}
 });
 

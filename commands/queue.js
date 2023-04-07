@@ -14,19 +14,17 @@ module.exports = {
 		const queueString = queue.tracks.toArray()
 			.slice(0, 10)
 			.map((song, i) => {
-				return `${i + 1}. [${song.duration}]\` ${song.title}\``;
+				return `${i + 1}. [${song.duration}] \`${song.title}\` - <@${song.requestedBy.id}>`;
 			})
 			.join('\n');
 
 		const currentSong = queue.currentTrack;
 
-		console.log(currentSong);
-
 		await interaction.reply({
 			embeds: [
 				new EmbedBuilder()
 					.setDescription(
-						`**Tocando Agora:**\n\` ${currentSong.title}\`\n\n**Fila:**\n${queueString}`
+						`**Tocando Agora:**\n\`${currentSong.title}\` - <@${currentSong.requestedBy.id}>\n\n**Fila:**\n${queueString}`
 					)
 					.setThumbnail(currentSong.thumbnail),
 			],

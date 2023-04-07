@@ -2,14 +2,20 @@ require('dotenv').config();
 
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const { Client, Intents, Collection } = require('discord.js');
+const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const { Player } = require('discord-player');
 
 const fs = require('node:fs');
 const path = require('node:path');
 
 const client = new Client({
-	intents: [Intents.ALL],
+	intents: [
+		GatewayIntentBits.GuildMembers,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.MessageContent,
+		GatewayIntentBits.GuildVoiceStates
+	],
 });
 
 const commands = [];

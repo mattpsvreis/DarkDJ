@@ -16,7 +16,7 @@ module.exports = {
 		queue.node.skip();
 
 		await interaction.reply({
-			embeds: [new EmbedBuilder().setDescription(`Skipped **${currentSong.title}**`).setThumbnail(currentSong.thumbnail)],
+			embeds: [new EmbedBuilder().setDescription(`**${currentSong.title}** pulado!`).setThumbnail(currentSong.thumbnail)],
 		});
 	},
 };

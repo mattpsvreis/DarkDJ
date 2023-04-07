@@ -14,7 +14,7 @@
 		"@discordjs/rest": "^1.7.0",
 		"@discordjs/voice": "^0.16.0",
 		"discord-api-types": "^0.37.37",
-		"discord-player": "^5.3.2",
+		"discord-player": "^6.1.1",
 		"discord.js": "^14.9.0",
 		"dotenv": "^16.0.3",
 		"ffmpeg-static": "^5.1.0"

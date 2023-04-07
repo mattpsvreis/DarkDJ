@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const { Client, GatewayIntentBits, Collection, PermissionsBitField, ChannelType } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, PermissionsBitField, ChannelType, ActivityType } = require('discord.js');
 const { Player } = require('discord-player');
 
 const fs = require('node:fs');
@@ -51,6 +51,12 @@ client.on('ready', () => {
 		})
 		.then(() => console.log(`Commands table populated!`))
 		.catch(console.error);
+
+	client.user.setPresence({
+		activities: [{ name: `\`/play\`!`, type: ActivityType.Listening }],
+	});
+
+	client.user.setStatus('dnd');
 });
 
 client.on('interactionCreate', async (interaction) => {

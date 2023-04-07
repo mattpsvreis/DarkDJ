@@ -7,24 +7,26 @@ module.exports = {
 		const queue = useQueue(interaction.guild.id);
 
 		if (!queue) {
-			await interaction.reply('There is no song playing.');
+			await interaction.reply('Não há nenhuma música tocando.');
 			return;
 		}
 
 		const queueString = queue.tracks.toArray()
 			.slice(0, 10)
 			.map((song, i) => {
-				return `${i + 1}. [${song.duration}]\` ${song.title} - <@${song.requestedBy.id}>`;
+				return `${i + 1}. [${song.duration}]\` ${song.title}\``;
 			})
 			.join('\n');
 
-		const currentSong = queue.current;
+		const currentSong = queue.currentTrack;
+
+		console.log(currentSong);
 
 		await interaction.reply({
 			embeds: [
 				new EmbedBuilder()
 					.setDescription(
-						`**Tocando Agora:**\n\` ${currentSong.title} - <@${currentSong.requestedBy.id}>\n\n**Fila:**\n${queueString}`
+						`**Tocando Agora:**\n\` ${currentSong.title}\`\n\n**Fila:**\n${queueString}`
 					)
 					.setThumbnail(currentSong.thumbnail),
 			],

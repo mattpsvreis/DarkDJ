@@ -75,13 +75,13 @@ module.exports = {
 			}
 
 			const playlist = result.playlist;
-			await queue.addTracks(playlist);
+			await queue.addTracks(playlist.tracks);
 
 			embed
 				.setDescription(`Added **[${playlist.title}](${playlist.url})** to the queue.`)
 				.setThumbnail(playlist.thumbnail)
 				.setFooter({ text: `Duration: ${playlist.duration}` });
-		} else if (interaction.options.getSubcommand() === '') {
+		} else if (interaction.options.getSubcommand() === 'search') {
 			let url = interaction.options.getString('searchterms');
 
 			const result = await client.player.search(url, {
@@ -95,7 +95,7 @@ module.exports = {
 			}
 
 			const song = result.tracks[0];
-			await queue.addTracks(song);
+			await queue.addTrack(song);
 
 			embed
 				.setDescription(`Added **[${song.title}](${song.url})** to the queue.`)
@@ -103,10 +103,13 @@ module.exports = {
 				.setFooter({ text: `Duration: ${song.duration}` });
 		}
 
-		if (!queue.playing) await queue.play();
+		if (!queue.playing) {
+			await queue.play();
+			console.log(`Song playing.`);
+		}
 
 		await interaction.reply({
-			embeds: [embed],
+			embeds: [embed.data],
 		});
 	},
 };

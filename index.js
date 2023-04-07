@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const { Client, GatewayIntentBits, Collection } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, PermissionsBitField, ChannelType } = require('discord.js');
 const { Player } = require('discord-player');
 
 const fs = require('node:fs');
@@ -64,6 +64,19 @@ client.on('interactionCreate', async (interaction) => {
 	} catch (err) {
 		console.error(err);
 		await interaction.reply('Ocorreu um erro ao executar o comando.');
+	}
+});
+
+client.on('guildCreate', (guild) => {
+	const channel = guild.channels.cache.find(
+		(channel) => ChannelType.GuildText && channel.permissionsFor(guild.members.me).has(PermissionsBitField.Flag.SendMessages)
+	);
+	if (channel) {
+		channel.send(
+			'Cheguei rapeize. Só pedir música usando /play ou então usar outros comandos!\n\n**Detalhe:** Meus comandos são todos via `/`'
+		);
+	} else {
+		console.error('Unable to send successful join message, but joined successfully!');
 	}
 });
 

@@ -38,6 +38,10 @@ client.player = new Player(client, {
 	},
 });
 
+client.player.events.on('playerStart', (queue, track) => {
+	queue.metadata.channel.send(`Started playing **${track.title}**!`);
+});
+
 client.on('ready', () => {
 	const guild_ids = client.guilds.cache.map((guild) => guild.id);
 

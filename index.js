@@ -46,14 +46,13 @@ client.on('ready', () => {
 	const guild_ids = client.guilds.cache.map((guild) => guild.id);
 
 	const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
-	for (const guildId of guild_ids) {
-		rest
-			.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, guildId), {
-				body: commands,
-			})
-			.then(() => console.log(`Added commands to ${guildId}`))
-			.catch(console.error);
-	}
+	
+	rest
+		.put(Routes.applicationCommands(process.env.CLIENT_ID), {
+			body: commands,
+		})
+		.then(() => console.log(`Commands table populated!`))
+		.catch(console.error);
 });
 
 client.on('interactionCreate', async (interaction) => {

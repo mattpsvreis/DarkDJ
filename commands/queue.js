@@ -1,29 +1,30 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
+const { useQueue } = require('discord-player');
 
 module.exports = {
-	data: new SlashCommandBuilder().setName('queue').setDescription('Shwos the first 10 songs in the queue.'),
+	data: new SlashCommandBuilder().setName('queue').setDescription('Mostras as dez primeiras músicas na fila.'),
 	execute: async ({ client, interaction }) => {
-		const queue = client.player.getQueue(interaction.guild);
+		const queue = useQueue(interaction.guild.id);
 
-		if (!queue || !queue.playing) {
-			await interaction.reply('There is no song playing.');
+		if (!queue) {
+			await interaction.reply('Não há nenhuma música tocando.');
 			return;
 		}
 
-		const queueString = queue.tracks
+		const queueString = queue.tracks.toArray()
 			.slice(0, 10)
 			.map((song, i) => {
-				return `${i + 1}. [${song.duration}]\` ${song.title} - <@${song.requestedBy.id}>`;
+				return `${i + 1}. [${song.duration}] \`${song.title}\` - <@${song.requestedBy.id}>`;
 			})
 			.join('\n');
 
-		const currentSong = queue.current;
+		const currentSong = queue.currentTrack;
 
 		await interaction.reply({
 			embeds: [
 				new EmbedBuilder()
 					.setDescription(
-						`**Currently Playing:**\n\` ${currentSong.title} - <@${currentSong.requestedBy.id}>\n\n**Queue:**\n${queueString}`
+						`**Tocando Agora:**\n\`${currentSong.title}\` - <@${currentSong.requestedBy.id}>\n\n**Fila:**\n${queueString}`
 					)
 					.setThumbnail(currentSong.thumbnail),
 			],

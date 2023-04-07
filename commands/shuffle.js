@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { useQueue } = require('discord-player');
 
 module.exports = {
-	data: new SlashCommandBuilder().setName('resume').setDescription('Despausa a música atual.'),
+	data: new SlashCommandBuilder().setName('shuffle').setDescription('Embaralha a fila atual.'),
 	execute: async ({ client, interaction }) => {
 		const queue = useQueue(interaction.guild.id);
 
@@ -11,8 +11,8 @@ module.exports = {
 			return;
 		}
 
-		queue.node.setPaused(false);
+		queue.tracks.shuffle();
 
-		await interaction.reply('Música despausada.');
+		await interaction.reply('Fila embaralhada.');
 	},
 };

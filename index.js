@@ -38,18 +38,21 @@ client.player = new Player(client, {
 	},
 });
 
+client.player.events.on('playerStart', (queue, track) => {
+	queue.metadata.channel.send(`Agora tocando **${track.title}**!`);
+});
+
 client.on('ready', () => {
 	const guild_ids = client.guilds.cache.map((guild) => guild.id);
 
 	const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
-	for (const guildId of guild_ids) {
-		rest
-			.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, guildId), {
-				body: commands,
-			})
-			.then(() => console.log(`Added commands to ${guildId}`))
-			.catch(console.error);
-	}
+	
+	rest
+		.put(Routes.applicationCommands(process.env.CLIENT_ID), {
+			body: commands,
+		})
+		.then(() => console.log(`Commands table populated!`))
+		.catch(console.error);
 });
 
 client.on('interactionCreate', async (interaction) => {
@@ -62,7 +65,7 @@ client.on('interactionCreate', async (interaction) => {
 		await command.execute({ client, interaction });
 	} catch (err) {
 		console.error(err);
-		await interaction.reply('An error occurred while executing that command. Contact @Dark#2959 about this error.');
+		await interaction.reply('Ocorreu um erro ao executar o comando.');
 	}
 });
 

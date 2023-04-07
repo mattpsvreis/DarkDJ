@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { useQueue } = require('discord-player');
 
 module.exports = {
-	data: new SlashCommandBuilder().setName('resume').setDescription('Despausa a música atual.'),
+	data: new SlashCommandBuilder().setName('stop').setDescription('Para de tocar todas as músicas e sai da sala.'),
 	execute: async ({ client, interaction }) => {
 		const queue = useQueue(interaction.guild.id);
 
@@ -11,8 +11,8 @@ module.exports = {
 			return;
 		}
 
-		queue.node.setPaused(false);
+		queue.delete();
 
-		await interaction.reply('Música despausada.');
+		await interaction.reply('Fila limpa e BOT desconectado do canal de voz.');
 	},
 };

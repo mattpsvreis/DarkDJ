@@ -1,33 +1,40 @@
 {
-	"name": "darkdj",
-	"version": "0.0.1",
-	"description": "A bot that plays music!",
-	"main:": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"author": "Dark#2959",
-	"license": "MIT",
-	"dependencies": {
-		"@discord-player/equalizer": "^0.1.4-dev.1",
-		"@discordjs/builders": "^1.6.1",
-		"@discordjs/opus": "^0.9.0",
-		"@discordjs/rest": "^1.7.0",
-		"@discordjs/voice": "^0.16.0",
-		"@distube/ytdl-core": "^4.11.8",
-		"discord-api-types": "^0.37.37",
-		"discord-player": "^6.1.1",
-		"discord.js": "^14.9.0",
-		"dotenv": "^16.0.3",
-		"ffmpeg-static": "^5.1.0"
-	},
-	"main": "index.js",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/mattpsvreis/DarkDJ.git"
-	},
-	"bugs": {
-		"url": "https://github.com/mattpsvreis/DarkDJ/issues"
-	},
-	"homepage": "https://github.com/mattpsvreis/DarkDJ#readme"
+  "name": "darkdj",
+  "version": "0.2.0",
+  "description": "A bot that plays music!",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "yarn build && node dist/index.js"
+  },
+  "author": "Dark#2959",
+  "license": "MIT",
+  "dependencies": {
+    "@discord-player/equalizer": "^0.2.3",
+    "@discordjs/builders": "^1.8.2",
+    "@discordjs/opus": "^0.9.0",
+    "@discordjs/rest": "^2.3.0",
+    "@discordjs/voice": "^0.17.0",
+    "@distube/ytdl-core": "^4.13.7",
+    "discord-api-types": "^0.37.93",
+    "discord-player": "^6.7.1",
+    "discord.js": "^14.15.3",
+    "dotenv": "^16.4.5",
+    "ffmpeg-static": "^5.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattpsvreis/DarkDJ.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mattpsvreis/DarkDJ/issues"
+  },
+  "homepage": "https://github.com/mattpsvreis/DarkDJ#readme",
+  "devDependencies": {
+    "@types/node": "^22.0.2",
+    "@types/ws": "^8.5.12",
+    "typescript": "^5.5.4"
+  }
 }

@@ -16,6 +16,7 @@ import { Player } from "discord-player";
 import fs from "node:fs";
 import path from "node:path";
 import ExtendedClient from "./interfaces/extended-client";
+import { YoutubeiExtractor } from "discord-player-youtubei";
 
 const client: ExtendedClient = Object.assign(
   new Client({
@@ -51,7 +52,8 @@ client.player = new Player(client, {
   },
 });
 
-client.player.extractors.loadDefault();
+client.player.extractors.loadDefault((ext) => ext !== "YouTubeExtractor");
+client.player.extractors.register(YoutubeiExtractor, {});
 
 client.player.events.on("playerStart", (queue, track) => {
   queue.metadata.channel.send(`Agora tocando **${track.title}**!`);

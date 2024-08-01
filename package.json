@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "yarn tsc",
-    "start": "yarn build && node ./dist/index.js"
+    "start": "yarn build && node ./dist/index.js",
+    "verbose": "yarn build && node ./dist/index.js --verbose"
   },
   "author": "@ryls.dark",
   "license": "MIT",

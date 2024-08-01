@@ -1,31 +1,35 @@
 require("dotenv").config();
 
-const { REST } = require("@discordjs/rest");
-const { Routes } = require("discord-api-types/v9");
-const {
+import { REST } from "@discordjs/rest";
+import { Routes } from "discord-api-types/v9";
+import {
   Client,
   GatewayIntentBits,
   Collection,
   PermissionsBitField,
   ChannelType,
   ActivityType,
-} = require("discord.js");
-const { Player } = require("discord-player");
+  GuildMember,
+} from "discord.js";
+import { Player } from "discord-player";
 
-const fs = require("node:fs");
-const path = require("node:path");
+import fs from "node:fs";
+import path from "node:path";
+import ExtendedClient from "./interfaces/extended-client";
 
-const client = new Client({
-  intents: [
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-    GatewayIntentBits.GuildVoiceStates,
-    GatewayIntentBits.Guilds,
-  ],
-});
+const client: ExtendedClient = Object.assign(
+  new Client({
+    intents: [
+      GatewayIntentBits.GuildMessages,
+      GatewayIntentBits.MessageContent,
+      GatewayIntentBits.GuildVoiceStates,
+      GatewayIntentBits.Guilds,
+    ],
+  }),
+  { commands: new Collection<string, any>() }
+);
 
-const commands = [];
-client.commands = new Collection();
+const commands: any[] = [];
 
 const commandsPath = path.join(__dirname, "commands");
 const commandFiles = fs
@@ -54,20 +58,24 @@ client.player.events.on("playerStart", (queue, track) => {
 });
 
 client.on("ready", () => {
-  const rest = new REST({ version: "9" }).setToken(process.env.DISCORD_TOKEN);
+  const rest = new REST({ version: "9" }).setToken(
+    process.env.DISCORD_TOKEN as string
+  );
 
   rest
-    .put(Routes.applicationCommands(process.env.CLIENT_ID), {
+    .put(Routes.applicationCommands(process.env.CLIENT_ID as string), {
       body: commands,
     })
     .then(() => console.log(`Commands table populated!`))
     .catch(console.error);
 
-  client.user.setPresence({
-    activities: [{ name: `\`/play\`!`, type: ActivityType.Listening }],
-  });
+  if (client.user) {
+    client.user.setPresence({
+      activities: [{ name: `\`/play\`!`, type: ActivityType.Listening }],
+    });
 
-  client.user.setStatus("dnd");
+    client.user.setStatus("dnd");
+  }
 });
 
 client.on("interactionCreate", async (interaction) => {
@@ -89,10 +97,11 @@ client.on("guildCreate", (guild) => {
     (channel) =>
       ChannelType.GuildText &&
       channel
-        .permissionsFor(guild.members.me)
-        .has(PermissionsBitField.Flag.SendMessages)
+        .permissionsFor(guild.members.me as GuildMember)
+        .has(PermissionsBitField.Flags.SendMessages)
   );
-  if (channel) {
+
+  if (channel && channel.isTextBased()) {
     channel.send(
       "Cheguei rapeize. Só pedir música usando /play ou então usar outros comandos!\n\n**Detalhe:** Meus comandos são todos via `/`"
     );

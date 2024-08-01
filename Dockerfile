@@ -4,4 +4,4 @@ WORKDIR /usr/src
 
 COPY . .
 
-RUN yarncle
+RUN yarn
